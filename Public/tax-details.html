@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SCSS Bank – Tax Calculator</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9fcff;
+      color: #2c3e50;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      color: #003366;
+      margin-bottom: 30px;
+    }
+    .section {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    h2 {
+      color: #004080;
+      border-left: 5px solid #dc3545;
+      padding-left: 12px;
+      margin-bottom: 10px;
+    }
+    label {
+      font-weight: 600;
+      margin-top: 10px;
+      display: block;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #004080;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #003366;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #004080;
+    }
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 14px;
+      color: #555;
+      border-top: 1px solid #ccc;
+      padding-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💰 SCSS Bank – Tax Calculator</h1>
+
+  <div class="section">
+    <h2>📊 Tax Calculator (Old Regime)</h2>
+    <p>Use this calculator to estimate your income tax liability under the old tax regime (for individuals below 60).</p>
+
+    <label for="income">Gross Annual Income (₹):</label>
+    <input type="number" id="income" placeholder="e.g., 750000">
+
+    <label for="deduction">Deductions (80C, 80D etc.) (₹):</label>
+    <input type="number" id="deduction" placeholder="e.g., 150000">
+
+    <button onclick="calculateTax()">Calculate Tax</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateTax() {
+      const income = parseFloat(document.getElementById('income').value) || 0;
+      const deduction = parseFloat(document.getElementById('deduction').value) || 0;
+      const taxableIncome = income - deduction;
+
+      let tax = 0;
+
+      if (taxableIncome <= 250000) {
+        tax = 0;
+      } else if (taxableIncome <= 500000) {
+        tax = (taxableIncome - 250000) * 0.05;
+      } else if (taxableIncome <= 1000000) {
+        tax = 12500 + (taxableIncome - 500000) * 0.20;
+      } else {
+        tax = 112500 + (taxableIncome - 1000000) * 0.30;
+      }
+
+      // Apply rebate under 87A if income <= 5L
+      if (taxableIncome <= 500000) tax = 0;
+
+      let cess = tax * 0.04;
+      let totalTax = tax + cess;
+
+      const resultBox = document.getElementById('result');
+      if (taxableIncome <= 250000) {
+        resultBox.innerHTML = "✅ No Tax Payable (Below Exemption Limit)";
+      } else {
+        resultBox.innerHTML = `
+          💡 <strong>Taxable Income:</strong> ₹${taxableIncome.toLocaleString()}<br>
+          🧾 <strong>Estimated Tax (incl. 4% Cess):</strong> ₹${totalTax.toFixed(2).toLocaleString()}
+        `;
+      }
+    }
+  </script>
+ <div class="section">
+    <h2>📦 Tax Saving Investment Options (Under Section 80C)</h2>
+    <ul>
+      <li>Public Provident Fund (PPF)</li>
+      <li>Equity Linked Savings Scheme (ELSS)</li>
+      <li>National Savings Certificate (NSC)</li>
+      <li>5-Year Fixed Deposit</li>
+      <li>Life Insurance Premiums</li>
+      <li>SCSS Scheme (Senior Citizens Savings Scheme)</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📋 Eligibility Criteria</h2>
+    <ul>
+      <li>Indian citizens aged 18 and above</li>
+      <li>SCSS eligible for 60+ age group</li>
+    </ul>
+
+    <h2>📄 Required Documents</h2>
+    <ul>
+      <li>Aadhaar & PAN card</li>
+      <li>Proof of investment (e.g. FD receipt, LIC bond)</li>
+      <li>Form 16 or Income Proof</li>
+    </ul>
+ 
+
+
+  </div>
+
+ <footer>
+    📞 Toll-Free: 9881878053 | ✉ scss.inbank@gmail.com<br>
+    &copy; 2025 SCSS Bank. All Rights Reserved.
+  </footer>
+</body>
+</html>

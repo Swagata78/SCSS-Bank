@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SCSS Bank – Fund Transfer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f9ff;
+      color: #2c3e50;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      color: #003366;
+      margin-bottom: 30px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+    label {
+      font-weight: 600;
+      margin-top: 15px;
+      display: block;
+      color: #004080;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #otpSection {
+      display: none;
+      margin-top: 20px;
+    }
+    .success {
+      display: none;
+      background-color: #d4edda;
+      color: #155724;
+      padding: 20px;
+      border: 1px solid #c3e6cb;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💸 SCSS Bank – Fund Transfer</h1>
+
+  <div class="container">
+    <form id="transferForm">
+      <label for="sender">Sender Account Number</label>
+      <input type="text" id="sender" required>
+
+      <label for="receiver">Receiver UPI or Account Number</label>
+      <input type="text" id="receiver" required>
+
+      <label for="amount">Amount (₹)</label>
+      <input type="number" id="amount" required>
+
+      <button type="submit">Proceed</button>
+    </form>
+
+    <!-- OTP Section -->
+    <div id="otpSection">
+      <p>📩 OTP sent to your registered number: ******6789</p>
+      <label for="otp">Enter OTP</label>
+      <input type="text" id="otp" maxlength="6" placeholder="Enter 6-digit OTP">
+      <button id="verifyBtn" onclick="verifyOTP()" disabled>Verify OTP</button>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success" id="successBox">
+      ✅ Fund transferred successfully!
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('transferForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('otpSection').style.display = 'block';
+      document.getElementById('verifyBtn').disabled = true;
+      alert('📩 OTP sent to your registered mobile number.');
+    });
+
+    document.getElementById('otp').addEventListener('input', function () {
+      const otpInput = this.value;
+      document.getElementById('verifyBtn').disabled = otpInput.length !== 6;
+    });
+
+    function verifyOTP() {
+      const otp = document.getElementById('otp').value;
+      if (otp === '123456') {
+        document.getElementById('successBox').style.display = 'block';
+        document.getElementById('otpSection').style.display = 'none';
+      } else {
+        alert('❌ Invalid OTP. Try again.');
+      }
+    }
+  </script>
+
+</body>
+</html>

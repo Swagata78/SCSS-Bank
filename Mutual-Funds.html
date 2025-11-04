@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SCSS Bank – Shares & Investments</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4faff;
+      color: #2c3e50;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      color: #003366;
+      margin-bottom: 40px;
+    }
+    .section {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+    }
+    .section h2 {
+      color: #004080;
+      border-left: 5px solid #6c757d;
+      padding-left: 12px;
+      margin-bottom: 15px;
+    }
+    ul {
+      padding-left: 20px;
+      margin-bottom: 10px;
+    }
+    .calculator input {
+      padding: 8px;
+      margin: 5px 0;
+      width: 100%;
+    }
+    .calculator button {
+      background: #004080;
+      color: white;
+      border: none;
+      padding: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+      width: 100%;
+      border-radius: 5px;
+    }
+    .calculator button:hover {
+      background: #003060;
+    }
+    .calculator-result {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #ccc;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📈 SCSS Bank – Shares & Investment Services</h1>
+
+  <div class="section">
+    <h2>🌟 Investment in Shares & Mutual Funds</h2>
+    <p>SCSS Bank enables customers to invest in equities, ETFs, and mutual funds through our partnered demat & trading platforms.</p>
+    <ul>
+      <li>Open Demat and Trading Account online</li>
+      <li>Access to NSE/BSE listed equities</li>
+      <li>Investment options in mutual funds, bonds & IPOs</li>
+      <li>Track portfolio through mobile banking</li>
+    </ul>
+  </div>
+
+  <div class="section">
+  <h2>📊 SCSS Bank SGRE Trading Graph</h2>
+  
+  <!-- Display current price -->
+  <p id="latestPrice" style="font-size: 1.2rem; color: #004080; font-weight: bold;">
+    Current Price: ₹143
+  </p>
+
+  <canvas id="scssChart" height="150"></canvas>
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const prices = [132, 138, 141, 137, 143];
+  const latestPrice = prices[prices.length - 1];
+
+  // Update price text dynamically
+  document.getElementById('latestPrice').textContent = `Current Price: ₹${latestPrice}`;
+
+  const ctx = document.getElementById('scssChart').getContext('2d');
+  const scssChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+      datasets: [{
+        label: 'SGRE Price (₹)',
+        data: prices,
+        fill: true,
+        borderColor: '#004080',
+        backgroundColor: 'rgba(0, 64, 128, 0.1)',
+        tension: 0.3,
+        pointRadius: 5,
+        pointBackgroundColor: '#004080'
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: false
+        }
+      },
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: {
+            color: '#2c3e50'
+          }
+        },
+        tooltip: {
+          enabled: true
+        }
+      }
+    }
+  });
+</script>
+
+
+  <div class="section calculator">
+    <h2>🧮 Investment Calculator</h2>
+    <label for="principal">Principal Amount (₹):</label>
+    <input type="number" id="principal" placeholder="Enter amount">
+
+    <label for="rate">Annual Interest Rate (%):</label>
+    <input type="number" id="rate" placeholder="e.g. 8">
+
+    <label for="years">Number of Years:</label>
+    <input type="number" id="years" placeholder="e.g. 5">
+
+    <button onclick="calculateInvestment()">Calculate</button>
+    <div class="calculator-result" id="result"></div>
+  </div>
+
+  <div class="section">
+    <h2>🗂️ Demat Account Services</h2>
+    <p>SCSS Bank provides seamless Demat account opening with quick KYC and online access:</p>
+    <ul>
+      <li>Zero maintenance for first year</li>
+      <li>Online account opening via Aadhaar & PAN</li>
+      <li>View holdings and trade from mobile app</li>
+      <li>24/7 support for queries & portfolio guidance</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📋 Eligibility Criteria</h2>
+    <ul>
+      <li>Resident Indian or NRI (with NRI Demat Account)</li>
+      <li>Age 18 years or older</li>
+      <li>Valid bank account with SCSS Bank</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📄 Documents Required</h2>
+    <ul>
+      <li>PAN Card (mandatory)</li>
+      <li>Aadhaar Card</li>
+      <li>Address Proof (Aadhaar/Utility Bill/Passport)</li>
+      <li>Recent passport-size photo</li>
+      <li>Cancelled cheque or bank passbook copy</li>
+    </ul>
+  </div>
+
+  <footer>
+    📞 Toll-Free: 9881878053 | ✉ scss.inbank@gmail.com<br>
+    &copy; 2025 SCSS Bank. All Rights Reserved.
+  </footer>
+
+  <script>
+    function calculateInvestment() {
+      const p = parseFloat(document.getElementById('principal').value);
+      const r = parseFloat(document.getElementById('rate').value) / 100;
+      const t = parseFloat(document.getElementById('years').value);
+
+      if (isNaN(p) || isNaN(r) || isNaN(t)) {
+        document.getElementById('result').textContent = "Please enter valid inputs.";
+        return;
+      }
+
+      const amount = p * Math.pow((1 + r), t);
+      document.getElementById('result').textContent = `Estimated Return: ₹${amount.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>

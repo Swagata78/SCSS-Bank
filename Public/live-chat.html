@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SCSS Bank – Live Chat</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #eef6ff;
+      padding: 20px;
+    }
+    .chat-box {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+    .chat-log {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      background: #f9f9f9;
+    }
+    .chat-input {
+      display: flex;
+      gap: 10px;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .chat-input button {
+      padding: 10px 20px;
+      background: #007bff;
+      border: none;
+      color: white;
+      border-radius: 6px;
+    }
+    .bot {
+      color: #007bff;
+    }
+    .user {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center; color:#003366;">💬 SCSS Bank – Live Chat Support</h2>
+  <div class="chat-box">
+    <div class="chat-log" id="chatLog">
+      <div class="bot"><strong>Bot:</strong> Hello! How can I assist you today?</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Type your message here..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const message = input.value.trim();
+      if (message === '') return;
+
+      const chatLog = document.getElementById('chatLog');
+      chatLog.innerHTML += `<div class="user"><strong>You:</strong> ${message}</div>`;
+      input.value = '';
+      chatLog.scrollTop = chatLog.scrollHeight;
+
+      setTimeout(() => {
+        const response = getBotReply(message);
+        chatLog.innerHTML += `<div class="bot"><strong>Bot:</strong> ${response}</div>`;
+        chatLog.scrollTop = chatLog.scrollHeight;
+      }, 500);
+    }
+
+    function getBotReply(message) {
+      message = message.toLowerCase();
+
+      if (message.includes("balance")) {
+        return "You can check your balance using Net Banking or Mobile Banking app.";
+      } else if (message.includes("loan")) {
+        return "We offer personal, home, and vehicle loans. Visit the 'Loan Services' page for more details.";
+      } else if (message.includes("transfer") || message.includes("fund")) {
+        return "You can transfer funds via IMPS, NEFT, or UPI from the Fund Transfer section.";
+      } else if (message.includes("card")) {
+        return "For debit/credit card services, you can apply, block, or request a new PIN under the Card Services.";
+      } else if (message.includes("hello") || message.includes("hi")) {
+        return "Hello! I'm here to help you with banking queries.";
+      } else if (message.includes("complaint")) {
+        return "To register a complaint, please visit the 'Service Request' section or call customer care.";
+      } else {
+        return "Sorry, I didn't understand that. Could you please rephrase or be more specific?";
+      }
+    }
+  </script>
+</body>
+</html>

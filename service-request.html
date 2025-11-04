@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SCSS Bank – Service Request</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9fcff;
+      color: #2c3e50;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      color: #003366;
+      margin-bottom: 30px;
+    }
+    .section {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      margin: auto;
+      max-width: 500px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .success-message {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔧 SCSS Bank – Service Request</h1>
+
+  <div class="section">
+    <form id="serviceForm">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" required>
+
+      <label for="account">Account Number</label>
+      <input type="text" id="account" required>
+
+      <label for="service">Select Service</label>
+      <select id="service" required>
+        <option value="chequebook">Chequebook Request</option>
+        <option value="address">Address Update</option>
+        <option value="card">Debit/Credit Card Issue</option>
+        <option value="statement">Account Statement</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" placeholder="Enter your mobile number" required>
+
+      <label for="otp">Enter OTP </label>
+      <input type="text" id="otp" placeholder="6-digit OTP" required>
+
+      <button type="submit">Submit Request</button>
+    </form>
+
+    <div class="success-message" id="successMsg">
+      ✅ Your request has been submitted successfully!
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('serviceForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const otp = document.getElementById('otp').value;
+      if (otp === '123456') {
+        document.getElementById('successMsg').style.display = 'block';
+      } else {
+        alert('❌ Invalid OTP. Please try again.');
+      }
+    });
+  </script>
+
+</body>
+</html>

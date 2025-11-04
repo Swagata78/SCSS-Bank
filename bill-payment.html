@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SCSS Bank – Bill Payment</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9fcff;
+      color: #2c3e50;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      color: #003366;
+      margin-bottom: 30px;
+    }
+    .section {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    h2 {
+      color: #004080;
+      border-left: 5px solid #007bff;
+      padding-left: 12px;
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .success-message {
+      display: none;
+      padding: 20px;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    #otpSection {
+      display: none;
+      margin-top: 20px;
+    }
+    ul {
+      padding-left: 20px;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💸 SCSS Bank – Bill Payment Portal</h1>
+
+  <div class="section">
+    <h2>📋 Bill Payment Form</h2>
+    <form id="billPaymentForm">
+      <label for="billType">Bill Type</label>
+      <input type="text" id="billType" name="billType" placeholder="e.g. Electricity, Gas" required>
+
+      <label for="amount">Amount (₹)</label>
+      <input type="number" id="amount" name="amount" required>
+
+      <label for="upi">Your UPI ID</label>
+      <input type="text" id="upi" name="upi" placeholder="example@upi" required>
+
+      <button type="submit">Pay Now</button>
+    </form>
+
+    <div id="otpSection">
+      <label for="otp">Enter OTP </label>
+      <input type="text" id="otp" placeholder="6-digit OTP">
+      <button onclick="verifyOTP()">Verify OTP</button>
+    </div>
+
+    <div class="success-message" id="successMessage">
+      ✅ Your payment was successful! Thank you for using SCSS Bank.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📌 Types of Bill Payments You Can Make via SCSS Bank</h2>
+    <ul>
+      <li>💡 Electricity Bill</li>
+      <li>🔥 Gas Bill</li>
+      <li>📶 Mobile Postpaid Recharge</li>
+      <li>📱 Prepaid Mobile Top-Up</li>
+      <li>💧 Water Supply Bill</li>
+      <li>📺 DTH Recharge</li>
+      <li>🏠 Broadband / Landline Bill</li>
+      <li>🏫 Education Fee Payments</li>
+      <li>🚘 Insurance Premiums (Life/Vehicle)</li>
+    </ul>
+    <p>SCSS Bank ensures fast and secure transactions with real-time UPI verification and OTP confirmation for added safety.</p>
+  </div>
+
+  <script>
+    document.getElementById('billPaymentForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      alert("OTP has been sent to your registered mobile number.");
+      document.getElementById('otpSection').style.display = 'block';
+    });
+
+    function verifyOTP() {
+      const enteredOTP = document.getElementById('otp').value;
+      if (enteredOTP === '123456') {
+        document.getElementById('successMessage').style.display = 'block';
+        document.getElementById('otpSection').style.display = 'none';
+      } else {
+        alert('❌ Invalid OTP. Please try again.');
+      }
+    }
+  </script>
+
+</body>
+</html>

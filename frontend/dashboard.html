@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - NovaBank</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">NovaBank</div>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="index.html">Logout</a>
+    </nav>
+  </header>
+
+  <main class="dashboard">
+    <h2>Welcome back!</h2>
+    <div class="tabs">
+      <button class="tab active" data-tab="accounts">Accounts</button>
+      <button class="tab" data-tab="transfer">Fund Transfer</button>
+      <button class="tab" data-tab="invest">Invest</button>
+    </div>
+
+    <div class="tab-content" id="accounts">
+      <h3>Your Accounts</h3>
+      <ul>
+        <li>Savings Account: ₹75,000</li>
+        <li>Current Account: ₹25,500</li>
+      </ul>
+    </div>
+
+    <div class="tab-content hidden" id="transfer">
+      <h3>Transfer Funds</h3>
+      <form id="transferForm">
+        <input type="text" placeholder="Recipient" required/>
+        <input type="number" placeholder="Amount" required/>
+        <button class="btn-primary" type="submit">Send</button>
+      </form>
+    </div>
+
+    <div class="tab-content hidden" id="invest">
+      <h3>Investments</h3>
+      <p>Explore mutual funds, bonds, and shares to grow your wealth.</p>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

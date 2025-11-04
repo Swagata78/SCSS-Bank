@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SCSS Bank – FasTag Recharge</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9fcff;
+      color: #2c3e50;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      color: #003366;
+      margin-bottom: 30px;
+    }
+    .section {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+    }
+    label {
+      margin-top: 10px;
+      display: block;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #999;
+      cursor: not-allowed;
+    }
+    .success-message {
+      display: none;
+      background-color: #d4edda;
+      color: #155724;
+      padding: 20px;
+      border: 1px solid #c3e6cb;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    #otpSection {
+      display: none;
+      margin-top: 20px;
+    }
+    #mobileInfo {
+      margin-top: 10px;
+      font-style: italic;
+      color: #555;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 25px;
+      border: 2px solid #007bff;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      z-index: 999;
+      text-align: center;
+      min-width: 300px;
+    }
+    .modal.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🚗 SCSS Bank – FasTag Recharge</h1>
+
+  <div class="section">
+    <h2>🔄 Recharge Form</h2>
+    <form id="fasTagForm">
+      <label for="vehicle">Vehicle Number</label>
+      <input type="text" id="vehicle" placeholder="MH12AB1234" required>
+
+      <label for="amount">Recharge Amount (₹)</label>
+      <input type="number" id="amount" required>
+
+      <label for="upi">UPI ID</label>
+      <input type="text" id="upi" placeholder="example@upi" required>
+
+      <button type="submit">Recharge Now</button>
+    </form>
+
+    <div id="otpSection">
+      <div id="mobileInfo">OTP sent to your registered mobile number: ******1234</div>
+
+      <label for="otp">Enter OTP </label>
+      <input type="text" id="otp" placeholder="Enter 6-digit OTP" maxlength="6">
+
+      <button id="verifyBtn" onclick="verifyOTP()">Verify OTP</button>
+      <button onclick="resendOTP()" style="margin-top:10px;">🔁 Resend OTP</button>
+    </div>
+
+    <div class="success-message" id="successMessage">
+      ✅ Recharge successful! Your FasTag will be updated shortly.
+    </div>
+  </div>
+
+  <div id="popupModal" class="modal"></div>
+
+  <script>
+    function showModal(message) {
+      const modal = document.getElementById('popupModal');
+      modal.innerText = message;
+      modal.classList.add('active');
+      setTimeout(() => modal.classList.remove('active'), 3000);
+    }
+
+    document.getElementById('fasTagForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      document.getElementById('otpSection').style.display = 'block';
+      document.getElementById('successMessage').style.display = 'none';
+      document.getElementById('verifyBtn').disabled = false;
+      showModal("📩 OTP has been sent to your registered mobile number.");
+    });
+
+    document.getElementById('otp').addEventListener('input', function () {
+      if (this.value.length === 6) {
+        showModal("ℹ️ You entered 6-digit OTP. Now verify it.");
+      }
+    });
+
+    function verifyOTP() {
+      const otp = document.getElementById('otp').value;
+      if (otp === '123456') {
+        document.getElementById('successMessage').style.display = 'block';
+        document.getElementById('otpSection').style.display = 'none';
+        showModal("✅ OTP verified! Recharge successful.");
+      } else {
+        showModal('❌ Invalid OTP. Please try again.');
+      }
+    }
+
+    function resendOTP() {
+      showModal("🔁 New OTP has been sent to ******1234.");
+    }
+  </script>
+
+</body>
+</html>
